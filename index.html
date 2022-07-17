@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Weather-Dashboard/assets/css/style.css">
+    <title>Weather Dashboard</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <header class="alert-primary pb-2 pt-2">
+            <h1 class="text-center">
+                Weather Dashboard
+            </h1>
+        </header>
+        <div class="row">
+            <div class="col-3 d-flex flex-column">
+                <div class="col search-by-city d-flex flex-column">
+                    <h2 class="h3 mt-2 mb-2">Search for a City:</h2>
+                    <input class="form-input" name="username" id="username" type="text" autofocus="true">
+                    <button type="submit" class=" searchBtn btn btn-info mt-2 mb-2">Search City</button>
+                    <span class="border-bottom border-dark mt-2 mb-2"></span>
+                </div>
+                <div class="searched-cities col d-flex flex-column">
+                    
+                </div>
+            </div>
+            <div class="weather col-9 mt-2 mb-2 d-flex flex-column">
+                <div class="current weather bg-info col d-flex flex-column">
+                    <h2 class="h3 text-center">
+                        Ottawa
+                    </h2>
+                </div>
+                <div class="five-day bg-primary col d-flex flex-column">
+                    <h3 class="h4">5-Day Forecast:</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
