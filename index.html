@@ -29,9 +29,11 @@
             </div>
             <div class="weather col-9 mt-2 mb-2 d-flex flex-column">
                 <div class="current weather bg-info col d-flex flex-column">
-                    <h2 class="h3 text-center">
-                        Ottawa
-                    </h2>
+                    <h2 class="cityNameDate h3 text-center"></h2>
+                    <p class="temp"></p>
+                    <p class="wind"></p>
+                    <p class="humidity"></p>
+                    <p class="uv-index"></p>
                 </div>
                 <div class="five-day bg-primary col d-flex flex-column">
                     <h3 class="h4">5-Day Forecast:</h3>
@@ -40,5 +42,6 @@
         </div>
     </div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="../Weather-Dashboard/assets/js/script.js"></script>
 </html>
