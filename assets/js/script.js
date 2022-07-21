@@ -6,6 +6,7 @@ var currentDate = moment().format("dddd, MM/DD/YY");
 var humidity = document.querySelector(".humidity");
 var wind = document.querySelector(".wind");
 var uvIndex = document.querySelector(".uv-index");
+var fiveDayForecast = document.querySelector(".fiveDays");
 
 const searchCity = (cityName) =>{
     cityName.preventDefault();
@@ -17,9 +18,9 @@ const searchCity = (cityName) =>{
         .then(response => response.json())
         .then(data => {
             const name = data.name
-            const tempValue = data.main.temp
+            const tempValue = Math.round(data.main.temp)
             const humidityValue = data.main.humidity
-            const windValue = data.wind.speed
+            const windValue = parseInt(data.wind.speed * 3.6);
             var icon = data.weather[0].icon                                    // using var I can declare icon twice
             const iconUrl = `http://openweathermap.org/img/wn/${icon}.png`;
             var icon = `<img src="${iconUrl}"/>`;                               // using var I can declare icon twice
@@ -66,6 +67,37 @@ const searchCity = (cityName) =>{
                 // } else {
                 //     uvIndex.classList.add("bg-danger");
                 // }
+
+                var fiveDayStats = data.daily
+                // console.log(fiveDayStats);
+
+                var fiveDay = "";
+                for (var i = 0; i < fiveDayStats.length; i++) {
+                    if (i >= 5) break;
+                    const newDate = moment().add(i, "d").format("M/D/YYYY")
+                    const fiveDayData = fiveDayStats[i]
+                    const tempStats = Math.round(fiveDayData.temp.day)
+                    const windStats = parseInt(fiveDayData.wind_speed * 3.6);
+                    const humidityStats = fiveDayData.humidity
+                    const condIcon = fiveDayData.weather[0].icon
+                    // const iconUrl = `http://openweathermap.org/img/wn/${icon}.png`;
+                    // var icon = `<img src="${iconUrl}"/>`; 
+                    // console.log(humidityStats);
+                    // console.log(windStats);
+                    // console.log(tempStats);
+                    // console.log(condIcon);
+
+                    fiveDay += `<div class="card bg-primary" style="flex: 1">
+                        <p class="h6">${newDate}</p>
+                        <img src="${iconUrl}"/>
+                        <p class="h6">Temp: ${tempStats}&#176C</p>
+                        <p class="h6">Wind: ${windStats}km/h</p>
+                        <p class="h6">Humidity: ${humidityStats}%</p>
+                    </div>`
+                }    
+
+                console.log(fiveDay);
+                fiveDayForecast.innerHTML = fiveDay;
             });
 
         });
@@ -73,3 +105,4 @@ const searchCity = (cityName) =>{
 };
 
 document.getElementById("searchBtn").addEventListener("click", searchCity);
+
