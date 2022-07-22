@@ -7,6 +7,7 @@ var humidity = document.querySelector(".humidity");
 var wind = document.querySelector(".wind");
 var uvIndex = document.querySelector(".uv-index");
 var fiveDayForecast = document.querySelector(".fiveDays");
+var userInputEl = document.querySelector(".user-input");
 
 const searchCity = (cityName) =>{
     cityName.preventDefault();
@@ -79,7 +80,7 @@ const searchCity = (cityName) =>{
                     const tempStats = Math.round(fiveDayData.temp.day)
                     const windStats = parseInt(fiveDayData.wind_speed * 3.6);
                     const humidityStats = fiveDayData.humidity
-                    const condIcon = fiveDayData.weather[0].icon
+                    // const condIcon = fiveDayData.weather[0].icon                            // It's displaying the same icon for everyday. Need to pull from daily ( not the same as the icon being pulled for the current day)
                     // const iconUrl = `http://openweathermap.org/img/wn/${icon}.png`;
                     // var icon = `<img src="${iconUrl}"/>`; 
                     // console.log(humidityStats);
@@ -101,8 +102,18 @@ const searchCity = (cityName) =>{
             });
 
         });
-    
+    saveData();
 };
 
 document.getElementById("searchBtn").addEventListener("click", searchCity);
+
+// function saveData() {
+//     var saveCity = document.querySelector(".user-input")
+//     localStorage.setItem("City", saveCity.value);
+// }
+
+const saveData = () => {
+    var saveCity = document.querySelector(".user-input")
+    localStorage.setItem("City", saveCity.value);
+}
 
