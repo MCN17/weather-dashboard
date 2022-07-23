@@ -8,8 +8,10 @@ var wind = document.querySelector(".wind");
 var uvIndex = document.querySelector(".uv-index");
 var fiveDayForecast = document.querySelector(".fiveDays");
 var userInputEl = document.querySelector(".user-input");
+var recentButtonEl = document.querySelector(".recentBtn");
 
 const searchCity = (cityName) =>{
+    console.log(cityName)    // Only the first recentBtn that is created actually searches anything...must have something to do with me making all the buttons have the same id.
     cityName.preventDefault();
     let city = document.getElementById("user-input").value;
     var weatherApi = "https://api.openweathermap.org/data/2.5/weather?q=";
@@ -103,17 +105,48 @@ const searchCity = (cityName) =>{
 
         });
     saveData();
+
+  
 };
 
 document.getElementById("searchBtn").addEventListener("click", searchCity);
 
-// function saveData() {
-//     var saveCity = document.querySelector(".user-input")
-//     localStorage.setItem("City", saveCity.value);
-// }
-
 const saveData = () => {
     var saveCity = document.querySelector(".user-input")
     localStorage.setItem("City", saveCity.value);
+
 }
+
+const recentSearches = () => {
+    const button = document.createElement("button");
+    button.setAttribute("class", "btn m-1 btn-info")
+    button.setAttribute("id", "recentBtn")
+    document.querySelector(".searched-cities").appendChild(button);
+    button.textContent = userInputEl.value
+    document.getElementById("recentBtn").addEventListener("click", searchCity);
+}
+
+document.getElementById("searchBtn").addEventListener("click", recentSearches)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const pullData = () => {
+//     var pullCity = localStorage.getItem("City");
+//     pullCity = document.querySelector(".user-input");
+
+// }
 
