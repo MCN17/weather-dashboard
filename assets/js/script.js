@@ -91,7 +91,7 @@ const searchCity = (cityName) =>{
                     // console.log(tempStats);
                     // console.log(condIcon);
 
-                    fiveDay += `<div class="card bg-primary" style="flex: 1">
+                    fiveDay += `<div class="card alert-primary" style="flex: 1">
                         <p class="h6">${newDate}</p>
                         <img src="${iconUrl}"/>
                         <p class="h6">Temp: ${tempStats}&#176C</p>
@@ -124,7 +124,7 @@ document.getElementById("searched-cities").innerHTML = localStorage.getItem("Cit
 
 const recentSearches = () => {
     const button = document.createElement("button");
-    button.setAttribute("class", "btn m-1 btn-info")
+    button.setAttribute("class", "recentBtn btn-primary btn m-1")
     button.setAttribute("id", "recentBtn")
     document.querySelector(".searched-cities").appendChild(button);
     button.textContent = userInputEl.value
