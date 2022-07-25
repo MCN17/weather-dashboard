@@ -9,6 +9,7 @@ var uvIndex = document.querySelector(".uv-index");
 var fiveDayForecast = document.querySelector(".fiveDays");
 var userInputEl = document.querySelector(".user-input");
 var recentButtonEl = document.querySelector(".recentBtn");
+var SearchedCitiesEl = document.querySelector(".searched-cities");
 
 const searchCity = (cityName) =>{
     console.log(cityName)    // Only the first recentBtn that is created actually searches anything...must have something to do with me making all the buttons have the same id.
@@ -82,9 +83,9 @@ const searchCity = (cityName) =>{
                     const tempStats = Math.round(fiveDayData.temp.day)
                     const windStats = parseInt(fiveDayData.wind_speed * 3.6);
                     const humidityStats = fiveDayData.humidity
-                    // const condIcon = fiveDayData.weather[0].icon                            // It's displaying the same icon for everyday. Need to pull from daily ( not the same as the icon being pulled for the current day)
-                    // const iconUrl = `http://openweathermap.org/img/wn/${icon}.png`;
-                    // var icon = `<img src="${iconUrl}"/>`; 
+                    var condIcon = fiveDayData.weather[0].icon
+                    const iconUrl = `http://openweathermap.org/img/wn/${condIcon}.png`;
+                    var condIcon = `<img src="${iconUrl}"/>`; 
                     // console.log(humidityStats);
                     // console.log(windStats);
                     // console.log(tempStats);
@@ -114,8 +115,12 @@ document.getElementById("searchBtn").addEventListener("click", searchCity);
 const saveData = () => {
     var saveCity = document.querySelector(".user-input")
     localStorage.setItem("City", saveCity.value);
-
+    
 }
+
+document.getElementById("searched-cities").innerHTML = localStorage.getItem("City");
+
+
 
 const recentSearches = () => {
     const button = document.createElement("button");
@@ -129,24 +134,4 @@ const recentSearches = () => {
 document.getElementById("searchBtn").addEventListener("click", recentSearches)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const pullData = () => {
-//     var pullCity = localStorage.getItem("City");
-//     pullCity = document.querySelector(".user-input");
-
-// }
 
