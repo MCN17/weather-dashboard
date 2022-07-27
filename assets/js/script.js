@@ -11,6 +11,9 @@ var userInputEl = document.querySelector(".user-input");
 var recentButtonEl = document.querySelector(".recentBtn");
 var SearchedCitiesEl = document.querySelector(".searched-cities");
 
+document.querySelector(".fiveDayHeading").style.visibility = "hidden";
+document.querySelector(".current-weather").style.visibility = "hidden";
+
 const searchCity = (cityName) =>{
     console.log(cityName)    // Only the first recentBtn that is created actually searches anything...must have something to do with me making all the buttons have the same id.
     cityName.preventDefault();
@@ -91,7 +94,7 @@ const searchCity = (cityName) =>{
                     // console.log(tempStats);
                     // console.log(condIcon);
 
-                    fiveDay += `<div class="card alert-primary" style="flex: 1">
+                    fiveDay += `<div class="card alert-primary m-1 p-2" style="flex: 1">
                         <p class="h6">${newDate}</p>
                         <img src="${iconUrl}"/>
                         <p class="h6">Temp: ${tempStats}&#176C</p>
@@ -105,7 +108,9 @@ const searchCity = (cityName) =>{
             });
 
         });
-    saveData();
+    // saveData();
+    document.querySelector(".fiveDayHeading").style.visibility = "visible";
+    document.querySelector(".current-weather").style.visibility = "visible";
 
   
 };
@@ -128,10 +133,12 @@ const recentSearches = () => {
     button.setAttribute("id", "recentBtn")
     document.querySelector(".searched-cities").appendChild(button);
     button.textContent = userInputEl.value
-    document.getElementById("recentBtn").addEventListener("click", searchCity);
+    // document.getElementById("recentBtn").addEventListener("click", searchCity);
+    
 }
 
 document.getElementById("searchBtn").addEventListener("click", recentSearches)
+
 
 
 

@@ -20,7 +20,7 @@ header {
 }
 
 .current-weather {
-    border-bottom: 2px solid rgb(220,238,255)
+    border: 2px solid rgb(220,238,255)
 }
 
 .card {
