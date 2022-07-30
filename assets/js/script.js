@@ -1,5 +1,4 @@
-searchButtonEl = document.querySelector(".searchBtn");
-
+// Global variables
 var temp = document.querySelector(".temp");
 var cityNameDate = document.querySelector(".cityNameDate")
 var currentDate = moment().format("dddd, MM/DD/YY");
@@ -8,19 +7,34 @@ var wind = document.querySelector(".wind");
 var uvIndex = document.querySelector(".uv-index");
 var fiveDayForecast = document.querySelector(".fiveDays");
 var userInputEl = document.querySelector(".user-input");
+searchButtonEl = document.querySelector(".searchBtn");
 var recentButtonEl = document.querySelector(".recentBtn");
 var SearchedCitiesEl = document.querySelector(".searched-cities");
 
 document.querySelector(".fiveDayHeading").style.visibility = "hidden";
 document.querySelector(".current-weather").style.visibility = "hidden";
 
-const searchCity = (cityName) =>{
-    console.log(cityName)    // Only the first recentBtn that is created actually searches anything...must have something to do with me making all the buttons have the same id.
-    cityName.preventDefault();
-    let city = document.getElementById("user-input").value;
+
+// Function that searches weather for a city based on user input
+function searchCity(cityName){
+    // console.log("Cityname," + cityName)    // Only the first recentBtn that is created actually searches anything...must have something to do with me making all the buttons have the same id.
+    
+    if (localStorage.getItem("cities") == null){
+        let cities = []
+        cities.push(cityName)
+        localStorage.setItem("cities", cities)
+    } else {
+        let cities = []
+        cities.push(localStorage.getItem("cities"))
+        cities.push(cityName)
+        localStorage.setItem("cities", cities)
+    }
+
+   
     var weatherApi = "https://api.openweathermap.org/data/2.5/weather?q=";
     var apiKey = "&units=metric&appid=55494ace23520784606e14e197b5fad1";
-    var apiFetch = weatherApi + city + apiKey;
+    var apiFetch = weatherApi + cityName + apiKey;
+    // console.warn("Apifetch", apiFetch)
         fetch(apiFetch)
         .then(response => response.json())
         .then(data => {
@@ -31,11 +45,7 @@ const searchCity = (cityName) =>{
             var icon = data.weather[0].icon                                    // using var I can declare icon twice
             const iconUrl = `http://openweathermap.org/img/wn/${icon}.png`;
             var icon = `<img src="${iconUrl}"/>`;                               // using var I can declare icon twice
-            // console.log(currentDate);
-            // console.log(name);
-            // console.log(tempValue);
-            // console.log(humidityValue);
-            // console.log(windValue);
+         
             cityNameDate.innerHTML = "";
             cityNameDate.innerHTML = `${name} (${currentDate}) ${icon}`;
             temp.innerHTML = `Temp: ${tempValue}&#176C`;
@@ -49,6 +59,7 @@ const searchCity = (cityName) =>{
                 // console.log(uvi);
                 uvIndex.innerHTML = `UVI: ${uvi}`
 
+                // Assigns a color around the uvi test depending on the uvi reading.
                 if (uvi >= 8) {
                     uvIndex.classList.add("bg-danger");
                 }
@@ -65,19 +76,8 @@ const searchCity = (cityName) =>{
                     uvIndex.classList.add("bg-primary");
                 }
 
-                
-
-                // if (uvi < 2) {
-                //     uvIndex.classList.add("bg-success");
-                // } else if (uvi >= 3 && uvi <= 6) {
-                //     uvIndex.classList.add("bg-warning");        // The color wont change from red back to green depending on the values. Only changes from green to red and then stays red no matter what the uvi value is.
-                // } else {
-                //     uvIndex.classList.add("bg-danger");
-                // }
-
+                // Displays the 5 day forecast for a city.
                 var fiveDayStats = data.daily
-                // console.log(fiveDayStats);
-
                 var fiveDay = "";
                 for (var i = 0; i < fiveDayStats.length; i++) {
                     if (i >= 5) break;
@@ -89,11 +89,8 @@ const searchCity = (cityName) =>{
                     var condIcon = fiveDayData.weather[0].icon
                     const iconUrl = `http://openweathermap.org/img/wn/${condIcon}.png`;
                     var condIcon = `<img src="${iconUrl}"/>`; 
-                    // console.log(humidityStats);
-                    // console.log(windStats);
-                    // console.log(tempStats);
-                    // console.log(condIcon);
-
+                    
+                    // Creates a card for each day in the 5 day forecast
                     fiveDay += `<div class="card alert-primary m-1 p-2" style="flex: 1">
                         <p class="h6">${newDate}</p>
                         <img src="${iconUrl}"/>
@@ -108,37 +105,33 @@ const searchCity = (cityName) =>{
             });
 
         });
-    // saveData();
+   
     document.querySelector(".fiveDayHeading").style.visibility = "visible";
-    document.querySelector(".current-weather").style.visibility = "visible";
-
-  
+    document.querySelector(".current-weather").style.visibility = "visible";  
 };
 
-document.getElementById("searchBtn").addEventListener("click", searchCity);
 
-const saveData = () => {
-    var saveCity = document.querySelector(".user-input")
-    localStorage.setItem("City", saveCity.value);
-    
-}
-
-document.getElementById("searched-cities").innerHTML = localStorage.getItem("City");
+document.getElementById("searchBtn").addEventListener("click", ()=>{
+    let cityName = document.getElementById("user-input").value;
+    searchCity(cityName)});
 
 
+document.querySelector(".searched-cities").textContent = localStorage.getItem("City");
 
+// Creates a button for a city that is searched
 const recentSearches = () => {
     const button = document.createElement("button");
     button.setAttribute("class", "recentBtn btn-primary btn m-1")
-    button.setAttribute("id", "recentBtn")
+    button.setAttribute("value", userInputEl.value)
     document.querySelector(".searched-cities").appendChild(button);
     button.textContent = userInputEl.value
-    // document.getElementById("recentBtn").addEventListener("click", searchCity);
-    
+   
+    button.addEventListener("click", ()=> {
+        let cityName = document.querySelector(".recentBtn").value;
+        // console.log("Clicked " +userInputEl.value)
+        searchCity(cityName)
+    }); 
 }
 
 document.getElementById("searchBtn").addEventListener("click", recentSearches)
-
-
-
 

@@ -10,12 +10,16 @@
 </head>
 <body class="alert-primary">
     <div class="container-fluid">
+        <!-- Header Start -->
         <header class="pb-2 pt-2">
             <h1 class="text-center">
                 Weather Dashboard
             </h1>
         </header>
+        <!-- Header End -->
+        
         <div class="row">
+            <!-- Displays search bar for user to search weather for a city -->
             <div class="col-lg-3 d-flex flex-column">
                 <div class="col search-by-city d-flex flex-column">
                     <h2 class="h3 mt-2 mb-2">Search for a City:</h2>
@@ -23,11 +27,13 @@
                     <button type="submit" class="searchBtn btn-primary btn mt-2 mb-2" id="searchBtn">Search City</button>
                     <span class="border-bottom border-dark mt-2 mb-2"></span>
                 </div>
+                <!-- Displays recently searched cities -->
                 <div class="searched-cities col d-flex flex-column" id="searched-cities">
                     
                 </div>
             </div>
             <div class="weather col-lg-9 mt-2 mb-2 d-flex flex-column">
+                <!-- Displays current weather for a city -->
                 <div class="current-weather alert-primary mb-5 col d-flex flex-column">
                     <h2 class="cityNameDate h3 text-center"></h2>
                     <p class="temp h5"></p>
@@ -35,6 +41,7 @@
                     <p class="humidity h5"></p>
                     <p class="uv-index h5 mb-2"></p>
                 </div>
+                <!-- Displays 5 day forecast for a city -->
                 <div class="five-day alert-primary col d-flex flex-column">
                     <h3 class="fiveDayHeading h4">5-Day Forecast:</h3>
                     <div class="fiveDays row"></div>
