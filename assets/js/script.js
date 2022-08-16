@@ -15,22 +15,45 @@ document.querySelector(".fiveDayHeading").style.visibility = "hidden";
 document.querySelector(".current-weather").style.visibility = "hidden";
 
 
+// let saveCities = [];
+// // let cities = JSON.parse(localStorage.getitem(cities));
+// let cities = JSON.parse(localStorage.getItem("cities")) || [];
+// console.log(cities);
+// function initSearchSection () {
+//     console.log("initSearchSection");
+//     var storedCities = localStorage.getItem("cities");
+//     if (storedCities) {
+//         cities = JSON.parse(storedCities);                                           ONCE I UNCOMMENT THIS THE PREVIOUSLY SEARCHED CITIES DONT WORK ANYMORE
+//     }
+//     SearchedCitiesEl.innerHTML = "";
+//     for (var i = cities.length - 1; i >= 0; i--) {
+//         const button = document.createElement("button");
+//         button.setAttribute("class", "recentBtn btn-primary btn m-1")
+//         button.setAttribute("value", cities[i])
+//         document.querySelector(".searched-cities").appendChild(button);
+//         button.textContent = cities[i];
+       
+//         button.addEventListener("click", (e)=> {
+//             var btn = e.target
+//             //  console.log("Clicked " + cityName)
+//              var cityName = btn.getAttribute("value");
+//              console.log(cityName);
+//             searchCity(cityName)
+//         }); 
+//     }
+// }
+// initSearchSection();
+
 // Function that searches weather for a city based on user input
 function searchCity(cityName){
-    // console.log("Cityname," + cityName)    // Only the first recentBtn that is created actually searches anything...must have something to do with me making all the buttons have the same id.
-    
-    if (localStorage.getItem("cities") == null){
-        let cities = []
-        cities.push(cityName)
-        localStorage.setItem("cities", cities)
-    } else {
-        let cities = []
-        cities.push(localStorage.getItem("cities"))
-        cities.push(cityName)
-        localStorage.setItem("cities", cities)
-    }
+  
+    // if (cities.indexOf(cityName) !== -1) {                                    ONCE I UNCOMMENT THIS THE PREVIOUSLY SEARCHED CITIES DONT WORK ANYMORE
+    //     return;
+    // } 
 
-   
+    // cities.push(cityName);
+    // localStorage.setItem("cities", JSON.stringify(cities));
+
     var weatherApi = "https://api.openweathermap.org/data/2.5/weather?q=";
     var apiKey = "&units=metric&appid=55494ace23520784606e14e197b5fad1";
     var apiFetch = weatherApi + cityName + apiKey;
@@ -116,8 +139,6 @@ document.getElementById("searchBtn").addEventListener("click", ()=>{
     searchCity(cityName)});
 
 
-document.querySelector(".searched-cities").textContent = localStorage.getItem("City");
-
 // Creates a button for a city that is searched
 const recentSearches = () => {
     const button = document.createElement("button");
@@ -126,9 +147,11 @@ const recentSearches = () => {
     document.querySelector(".searched-cities").appendChild(button);
     button.textContent = userInputEl.value
    
-    button.addEventListener("click", ()=> {
-        let cityName = document.querySelector(".recentBtn").value;
-        // console.log("Clicked " +userInputEl.value)
+    button.addEventListener("click", (e)=> {
+        var btn = e.target
+        //  console.log("Clicked " + cityName)
+         var cityName = btn.getAttribute("value");
+         console.log(cityName);
         searchCity(cityName)
     }); 
 }
